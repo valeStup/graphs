@@ -8,13 +8,23 @@
     position: absolute;
     height: 50px ;
     width: 50px ;
-    margin: 10px;
+    margin: 0px;
     border-radius: 50%;
     border: 1px solid;
-    transform-origin: 50% 0%;
+    transform-origin: 0% 0%;
     text-align: center;
+    z-index: 1;
 }
 .nodeDivText {
     font-size: 20px;
     position: relative;
+}
+
+.edge {
+    position: absolute;
+    border: 1px solid ;
+    height: 0px ;
+    transform-origin: 50% 0%;
+    text-align: center;
+    z-index: 0;
 }

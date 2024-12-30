@@ -1,13 +1,16 @@
 export class Graph {
     adjacencyList ;
+    adjaObjList ;
 
     constructor() {
         this.adjacencyList = new Map();
+        this.adjaObjList = [] ;
     }
 
     addNode(node) {
         if (!this.adjacencyList.has(node)) {
             this.adjacencyList.set(node, new Map());
+            this.adjaObjList.push({name: node, neighbours: '', styleY: 0 , styleX: 0 }) ;
         }
     }
 
@@ -15,9 +18,16 @@ export class Graph {
         if (this.adjacencyList.has(node1) && this.adjacencyList.has(node2)) {
             this.adjacencyList.get(node1).set(node2, weight) ; 
             this.adjacencyList.get(node2).set(node1, weight) ;
+
+            let ind1 = this.adjaObjList.findIndex((p) => p.name === node1);
+            this.adjaObjList[ind1].neighbours += `${node2}(${weight}), ` ;
+
+            let ind2 = this.adjaObjList.findIndex((p) => p.name === node2) ;
+            this.adjaObjList[ind2].neighbours += `${node1}(${weight}), `
         } else {
             console.log("One or two of the nodes weren't found") ;
         }
+        console.log(this.adjaObjList);
     }
 
     getNeighbours(node) {
@@ -33,13 +43,12 @@ export class Graph {
         const k = this.adjacencyList.size ;
         let styleX = x1 ;
         let styleY = y1 ;
-        this.adjacencyList.forEach((node) => {
-
+        for (let node of this.adjacencyList.keys()) {
             c++ ;
             const nodeDiv = document.createElement("div");
             nodeDiv.classList.add("nodeDiv");
             nodeDiv.id = `${node}` ;
-            nodeDiv.innerHTML += `<p class="nodeDivText">${c}</p>`
+            nodeDiv.innerHTML += `<p class="nodeDivText">${node}</p>`
 
             let alpha = 360 * (c/k) * (Math.PI / 180) ;
             let sin = Math.sin(alpha) ;
@@ -62,8 +71,62 @@ export class Graph {
             };
             nodeDiv.style.top = `${styleY}px` ;
             nodeDiv.style.left = `${styleX}px`;
-
             container.appendChild(nodeDiv) ;
-        })
+
+            let index = this.adjaObjList.findIndex((p) => p.name === node) ;
+            this.adjaObjList[index].styleY = styleY ;
+            this.adjaObjList[index].styleX = styleX ;
+        }
+
+        for (let [vertex, edges] of this.adjacencyList.entries()) {
+            let ind = this.adjaObjList.findIndex((p) => p.name === vertex);
+            let verY = this.adjaObjList[ind].styleY ;
+            let verX = this.adjaObjList[ind].styleX ;
+
+            for (let key of this.adjacencyList.keys()) {
+                if (this.hasEdge(vertex, key) && !document.getElementById(`${key}-${vertex}`)) {
+                    let myWeight = this.adjacencyList.get(vertex).get(key) ;
+                    console.log("from " + vertex + " to " + key + ": "+ myWeight);
+
+                    let indo = this.adjaObjList.findIndex((p) => p.name === key);
+                    let keyY = this.adjaObjList[indo].styleY ;
+                    let keyX = this.adjaObjList[indo].styleX ;
+
+                    let lineY = 0.5 * (keyY + verY) ;
+                    let lineX = 0.5 * (keyX + verX) ;
+
+                    let vorZeichen = 1 ;
+                    let adja = Math.abs(keyX - verX).toFixed(2) ;
+                    let oppc = Math.abs(keyY - verY).toFixed(2) ;
+                    let hypo = Math.pow(adja, 2) + Math.pow(oppc, 2) ;
+                    let lineW = Math.sqrt(hypo);
+
+                    if (!((keyX - verX).toFixed(2) > 0 && (keyY - verY).toFixed(2) > 0 || (keyX - verX).toFixed(2) < 0 && (keyY - verY).toFixed(2) < 0)) {
+                        vorZeichen = -1 ;
+                    }
+
+                    let betaInRadians = Math.atan( oppc / adja ) ;
+                    let betaInDegrees = betaInRadians * (180 / Math.PI) * vorZeichen ;
+                    console.log("opp: " + oppc + " addj: " + adja);
+                    console.log(betaInDegrees);
+
+
+                    const line = document.createElement("span");
+                    line.classList.add("edge");
+                    line.id = `${vertex}-${key}`;
+                    line.innerHTML += `<p class="weightTxt">${myWeight}</p>` ;
+
+                    line.style.top = `${lineY}px` ;
+                    line.style.left = `${lineX}px`;
+                    line.style.width = `${lineW}px` ;
+                    line.style.transform = `rotate(${betaInDegrees}deg)`;
+                    container.appendChild(line);
+
+                    console.log("x: " + lineX + " y: " + lineY );
+                }
+            }
+        }
     }
+
+    
 }
