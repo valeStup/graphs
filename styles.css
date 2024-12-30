@@ -6,6 +6,7 @@
 }
 .nodeDiv {
     position: absolute;
+    background-color: aliceblue;
     height: 50px ;
     width: 50px ;
     margin: 0px;
@@ -13,7 +14,7 @@
     border: 1px solid;
     transform-origin: 0% 0%;
     text-align: center;
-    z-index: 1;
+    z-index: 100;
 }
 .nodeDivText {
     font-size: 20px;
@@ -24,7 +25,8 @@
     position: absolute;
     border: 1px solid ;
     height: 0px ;
-    transform-origin: 50% 0%;
+    transform-origin: 0% 0%;
     text-align: center;
     z-index: 0;
+    margin:  auto ;
 }

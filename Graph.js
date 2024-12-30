@@ -92,8 +92,8 @@ export class Graph {
                     let keyY = this.adjaObjList[indo].styleY ;
                     let keyX = this.adjaObjList[indo].styleX ;
 
-                    let lineY = 0.5 * (keyY + verY) ;
-                    let lineX = 0.5 * (keyX + verX) ;
+                    let lineY = keyY - ((keyY - verY).toFixed(2))*0.5 ;
+                    let lineX = keyX - ((keyX - verX).toFixed(2))*0.5 ;
 
                     let vorZeichen = 1 ;
                     let adja = Math.abs(keyX - verX).toFixed(2) ;
@@ -116,8 +116,8 @@ export class Graph {
                     line.id = `${vertex}-${key}`;
                     line.innerHTML += `<p class="weightTxt">${myWeight}</p>` ;
 
-                    line.style.top = `${lineY}px` ;
-                    line.style.left = `${lineX}px`;
+                    line.style.top = `${keyY + 25}px` ;
+                    line.style.left = `${keyX + 25}px`;
                     line.style.width = `${lineW}px` ;
                     line.style.transform = `rotate(${betaInDegrees}deg)`;
                     container.appendChild(line);
