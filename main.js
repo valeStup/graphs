@@ -8,7 +8,15 @@ const y1 = rect.top ;
 const x1 = rect.left ;
 const width = rect.right - rect.left ;
 
-graph.addNode("A") ;
+const numInput = document.querySelector('.numInput') ;
+numInput.addEventListener("input", () => {
+    if (numInput.value >= 26) return ; 
+    graph.updateSize(numInput.value) ;
+    container.innerHTML = '' ;
+    graph.displayGraph(container, x1, y1, width);
+})
+
+/*graph.addNode("A") ;
 graph.addNode("B") ;
 graph.addNode("C") ;
 graph.addNode("D") ;
@@ -20,6 +28,8 @@ graph.addEdge("A", "B", 3) ;
 graph.addEdge("A", "C", 5) ;
 graph.addEdge("B", "C", 5) ;
 graph.addEdge("A", "E", 10) ;
+
+graph.deleteNode("F")*/
 
 graph.displayGraph(container, x1, y1, width);
 

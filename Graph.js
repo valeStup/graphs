@@ -12,6 +12,51 @@ export class Graph {
             this.adjacencyList.set(node, new Map());
             this.adjaObjList.push({name: node, neighbours: '', styleY: 0 , styleX: 0 }) ;
         }
+        console.log(this.adjaObjList);
+    }
+
+    deleteNode(node) {
+        if (this.adjacencyList.has(node)) {
+            const ind = this.adjaObjList.findIndex((p) => p.name === node) ;
+            this.adjaObjList.slice(ind) ;
+            this.adjacencyList.delete(node) ;
+        }
+    }
+
+    clearGraph() {
+        this.adjacencyList.forEach((node) => {
+            this.deleteNode(node) ;
+            this.adjaObjList = [] ;
+        })
+    }
+
+    updateSize(newSize) {
+        const l = this.adjacencyList.size ;
+        console.log("l = " + l);
+        let lastC = 'A' ;
+        let asc = 64 ;
+        if(l > 0) {
+            lastC = this.adjaObjList[l - 1].name ;
+            asc = lastC.charCodeAt(0);
+        }
+        if (newSize > l) {
+            const over = newSize-l ;
+            for (let i = 1; i <= over; i++) {
+                let c = asc + i ;
+                let cC = String.fromCharCode(c) ;
+                this.addNode(cC) ;
+            }
+        } else if (newSize < l) {
+            const undies = l-newSize ;
+            for (let i = 0; i < undies; i++) {
+                let c = asc - i ;
+                let cC = String.fromCharCode(c) ;
+                console.log("removed " + cC)
+                this.deleteNode(cC) ;
+            }
+        } else {
+            return;
+        }
     }
 
     addEdge(node1, node2, weight) { 
