@@ -9,7 +9,7 @@
 <body>
     <div class="graphSettings">
         <label class="nodeLabel">Number of Nodes: </label>
-        <input type="number" class="numInput"  min="1" max="25"> 
+        <input type="number" class="numInput"  min="1" max="26"> 
         <label class="addEdgeLabel">Add an Edge:</label>
         <div class="addEdgeInputDiv">
           <label>From: </label>
@@ -20,6 +20,8 @@
           <input class="addEdgeInput" type="number" id="weightInput" min="0" max="1000">
         </div>
         <button class="addEdgeBtn">Add</button>
+        <p class="settingsBottomTxt">Click on two Nodes back to back to create an edge.
+           Select its weight within this Section</p>
     </div>
     <div class="graphDisplay"></div>
   <script type="module" src="./main.js"></script>

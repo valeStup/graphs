@@ -7,10 +7,11 @@ const rect = container.getBoundingClientRect() ;
 const y1 = rect.top ;
 const x1 = rect.left ;
 const width = rect.right - rect.left ;
+let selectedNodes = [] ;
 
 const numInput = document.querySelector('.numInput') ;
 numInput.addEventListener("input", () => {
-    if (numInput.value >= 26) return ; 
+    if (numInput.value > 26) return ; 
     graph.updateSize(numInput.value) ;
     container.innerHTML = '' ;
     graph.displayGraph(container, x1, y1, width);
@@ -27,13 +28,17 @@ addEdgeBtn.addEventListener("click", () => {
     graph.displayGraph(container, x1, y1, width);
 })
 
-/*graph.addNode("A") ;
-graph.addNode("B") ;
-graph.addNode("C") ;
-graph.addNode("D") ;
-graph.addNode("E") ;
-graph.addNode("F") ;
-graph.addNode("G") ;*/
+document.addEventListener("click", function(e) {
+    console.log(e.target.id);
+    selectedNodes.push(e.target.id);
+    if (selectedNodes.length === 2) {
+        graph.addEdge(selectedNodes[0], selectedNodes[1], weightInput.value) ;
+        container.innerHTML = '' ;
+        graph.displayGraph(container, x1, y1, width);
+        selectedNodes = [] ;
+
+    }
+})
 
 graph.displayGraph(container, x1, y1, width);
 

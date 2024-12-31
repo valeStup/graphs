@@ -6,7 +6,7 @@
 }
 .nodeDiv {
     position: absolute;
-    background-color: aliceblue;
+    background-color: #F0F8FF;
     height: 50px ;
     width: 50px ;
     margin: 0px;
@@ -15,6 +15,7 @@
     transform-origin: 50% 50%;
     text-align: center;
     z-index: 100;
+    cursor: pointer;
 }
 .nodeDivText {
     font-size: 20px;
@@ -38,7 +39,7 @@
     margin-top: 50px ;
     margin-left: 50px ;
     padding: 20px ;
-    height: 100px ;;
+    height: 150px ;;
     text-align: left;
     position: absolute;
 }
@@ -64,4 +65,8 @@
 }
 .nodeLabel {
     font-size: 1.1rem ;
+}
+.settingsBottomTxt {
+    position: relative; 
+    top: 25px ;
 }

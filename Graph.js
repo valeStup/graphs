@@ -91,7 +91,7 @@ export class Graph {
             const nodeDiv = document.createElement("div");
             nodeDiv.classList.add("nodeDiv");
             nodeDiv.id = `${node}` ;
-            nodeDiv.innerHTML += `<p class="nodeDivText">${node}</p>`
+            nodeDiv.innerHTML += `<p class="nodeDivText" id="${node}">${node}</p>`
 
             let alpha = 360 * (c/k) * (Math.PI / 180) ;
             let sin = Math.sin(alpha) ;
