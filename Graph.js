@@ -147,24 +147,19 @@ export class Graph {
                         vorZeichen = -1 ;
                     }
 
-                    let betaInRadians = Math.atan( oppc / adja ) ;
-                    let betaInDegrees = betaInRadians * (180 / Math.PI) * vorZeichen ;
+                    let betaInRadians = Math.atan2(keyY - verY, keyX - verX ) ;
+                    let betaInDegrees = betaInRadians * (180 / Math.PI);// * vorZeichen ;
 
                     const line = document.createElement("span");
                     line.classList.add("edge");
                     line.id = `${vertex}-${key}`;
-                    line.innerHTML += `<p class="weightTxt">${myWeight}</p>` ;
+                    line.innerHTML += `<p class="weightTxt" id="wTxt-${vertex}-${key}">${myWeight}</p>` ;
                     
-                    if (verY > keyY) {
-                        line.style.top = `${verY + 25}px` ;
-                        line.style.left = `${verX + 25}px`;
-                    } else if (verY < keyY && verX < keyX) {
-                        line.style.top = `${verY + 25}px` ;
-                        line.style.left = `${verX + 25}px`;
-                    } else {
-                        line.style.top = `${keyY + 25}px` ;
-                        line.style.left = `${keyX + 25}px`;
-                    }
+                    line.style.top = `${verY + 25}px` ;
+                    line.style.left = `${verX + 25}px`;
+
+                    const lineTxt = line.firstChild ;
+                    lineTxt.style.transform = `rotate(${-betaInDegrees}deg)` ;
                     line.style.width = `${lineW}px` ;
                     line.style.transform = `rotate(${betaInDegrees}deg)`;
                     container.appendChild(line);

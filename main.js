@@ -13,7 +13,6 @@ numInput.addEventListener("input", () => {
     if (numInput.value >= 26) return ; 
     graph.updateSize(numInput.value) ;
     container.innerHTML = '' ;
-    graph.addEdge("H", "M", 6) ;
     graph.displayGraph(container, x1, y1, width);
 })
 
