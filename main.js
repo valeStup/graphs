@@ -34,8 +34,8 @@ addEdgeBtn.addEventListener("click", () => {
 })
 
 document.addEventListener("click", function(e) {
-    console.log(e.target.id);
     selectedNodes.push(e.target.id);
+    console.log(e.target);
     if (selectedNodes.length === 2) {
         graph.addEdge(selectedNodes[0], selectedNodes[1], weightInput.value) ;
         container.innerHTML = '' ;
@@ -48,9 +48,15 @@ document.addEventListener("click", function(e) {
 const genRandomBtn = document.querySelector('.genRandomBtn');
 genRandomBtn.addEventListener("click", () => {
     randomCount++ ;
-    if(randomCount >= 10) return ;
+    if(randomCount >= 5) return ;
     let amount = 10 +  getRandomInt(20) ;
     let lle = graph.getLength() ;
+    /*for (let i = 0; i < lle; i++) {
+        let c1 = String.fromCharCode(65 + i);
+        let c2 = String.fromCharCode(66 + i)
+        let randW = 1 + getRandomInt(19) ;
+        graph.addEdge(c1, c2, randW) ;
+    }*/
     for (let i = 0; i < amount; i++) {
         let cINt = 65 + getRandomInt(lle) ;
         let char = String.fromCharCode(cINt);
@@ -64,7 +70,12 @@ genRandomBtn.addEventListener("click", () => {
     container.innerHTML = '' ;
     graph.displayGraph(container, x1, y1, width);
 })
+const dijkstraStartInput = document.querySelector('#dijkstraStartInput') ;
+const dijkstraDestInput = document.querySelector('#dijkstraDestInput') ;
+const impDijkstraBtn = document.querySelector('.impDijkstraBtn');
+impDijkstraBtn.addEventListener("click", () => {
+    if (!dijkstraStartInput.value || !dijkstraDestInput.value) return ;
+    console.log("dijkstra: " + graph.dijkstra(dijkstraStartInput.value, dijkstraDestInput.value)) ;
+});
 
 graph.displayGraph(container, x1, y1, width);
-
-console.log(graph) ;

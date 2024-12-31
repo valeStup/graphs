@@ -70,7 +70,6 @@ export class Graph {
         } else {
             console.log("One or two of the nodes weren't found") ;
         }
-        console.log(this.adjaObjList);
     }
 
     getNeighbours(node) {
@@ -170,6 +169,55 @@ export class Graph {
                 }
             }
         }
+    }
+
+
+    dijkstra(start, end) {
+        let distances = {}, previous = {}, pathLength = 0, unvisited = new Set() ;
+        for (let key of this.adjacencyList.keys()){
+            distances[key] = key === start ? 0 : Infinity ; 
+            unvisited.add(key) ;
+        } 
+
+        while (unvisited.size) {
+            let closestNode = null ;
+            for (let node of unvisited) {
+                if (!closestNode || distances[node] < distances[closestNode]) {
+                    closestNode = node ;
+                }
+            }
+            pathLength += distances[closestNode];
+
+            if (distances[closestNode] === Infinity) break ;
+            if (closestNode === end) break ;
+            for (let neighbour of this.adjacencyList.get(closestNode)) {
+                let newDistance = distances[closestNode] + neighbour[1] ;
+                if (newDistance < distances[neighbour[0]]) {
+                    distances[neighbour[0]] = newDistance ;
+                    previous[neighbour[0]] = closestNode ;
+                }
+            }
+            unvisited.delete(closestNode);
+        }
+
+        console.log(distances);
+
+        let path = [], node = end ;
+        while (node) {
+            path.push(node) ;
+            node = previous[node] ;
+        }
+        path = path.reverse() ;
+        /*console.log("length: " + pathLength);
+        console.log(path);
+        console.log(path[1]);
+        for (let i = 0; i < path.length; i++) {
+            let thisEdge = document.getElementById(`${path[i]}-${path[i+1]}`); 
+            console.log(`${path[i]}-${path[i+1]}`);
+            thisEdge.style.backgroundColor = 'pink' ;
+            thisEdge.style.border = '10px solid pink' ;
+        }*/
+        return path ;
     }
 
     
