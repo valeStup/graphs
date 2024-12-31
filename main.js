@@ -13,6 +13,18 @@ numInput.addEventListener("input", () => {
     if (numInput.value >= 26) return ; 
     graph.updateSize(numInput.value) ;
     container.innerHTML = '' ;
+    graph.addEdge("H", "M", 6) ;
+    graph.displayGraph(container, x1, y1, width);
+})
+
+const startInput = document.querySelector('#startInput') ;
+const endInput = document.querySelector('#destInput') ;
+const weightInput = document.querySelector('#weightInput') ;
+const addEdgeBtn = document.querySelector('.addEdgeBtn');
+addEdgeBtn.addEventListener("click", () => {
+    if (!startInput.value || !endInput.value || !weightInput.value) return ;
+    graph.addEdge(startInput.value, endInput.value, weightInput.value )
+    container.innerHTML = '' ;
     graph.displayGraph(container, x1, y1, width);
 })
 
@@ -22,14 +34,7 @@ graph.addNode("C") ;
 graph.addNode("D") ;
 graph.addNode("E") ;
 graph.addNode("F") ;
-graph.addNode("G") ;
-
-graph.addEdge("A", "B", 3) ;
-graph.addEdge("A", "C", 5) ;
-graph.addEdge("B", "C", 5) ;
-graph.addEdge("A", "E", 10) ;
-
-graph.deleteNode("F")*/
+graph.addNode("G") ;*/
 
 graph.displayGraph(container, x1, y1, width);
 

@@ -12,7 +12,6 @@ export class Graph {
             this.adjacencyList.set(node, new Map());
             this.adjaObjList.push({name: node, neighbours: '', styleY: 0 , styleX: 0 }) ;
         }
-        console.log(this.adjaObjList);
     }
 
     deleteNode(node) {
@@ -51,7 +50,6 @@ export class Graph {
             for (let i = 0; i < undies; i++) {
                 let c = asc - i ;
                 let cC = String.fromCharCode(c) ;
-                console.log("removed " + cC)
                 this.deleteNode(cC) ;
             }
         } else {
@@ -131,7 +129,6 @@ export class Graph {
             for (let key of this.adjacencyList.keys()) {
                 if (this.hasEdge(vertex, key) && !document.getElementById(`${key}-${vertex}`)) {
                     let myWeight = this.adjacencyList.get(vertex).get(key) ;
-                    console.log("from " + vertex + " to " + key + ": "+ myWeight);
 
                     let indo = this.adjaObjList.findIndex((p) => p.name === key);
                     let keyY = this.adjaObjList[indo].styleY ;
@@ -152,22 +149,25 @@ export class Graph {
 
                     let betaInRadians = Math.atan( oppc / adja ) ;
                     let betaInDegrees = betaInRadians * (180 / Math.PI) * vorZeichen ;
-                    console.log("opp: " + oppc + " addj: " + adja);
-                    console.log(betaInDegrees);
-
 
                     const line = document.createElement("span");
                     line.classList.add("edge");
                     line.id = `${vertex}-${key}`;
                     line.innerHTML += `<p class="weightTxt">${myWeight}</p>` ;
-
-                    line.style.top = `${keyY + 25}px` ;
-                    line.style.left = `${keyX + 25}px`;
+                    
+                    if (verY > keyY) {
+                        line.style.top = `${verY + 25}px` ;
+                        line.style.left = `${verX + 25}px`;
+                    } else if (verY < keyY && verX < keyX) {
+                        line.style.top = `${verY + 25}px` ;
+                        line.style.left = `${verX + 25}px`;
+                    } else {
+                        line.style.top = `${keyY + 25}px` ;
+                        line.style.left = `${keyX + 25}px`;
+                    }
                     line.style.width = `${lineW}px` ;
                     line.style.transform = `rotate(${betaInDegrees}deg)`;
                     container.appendChild(line);
-
-                    console.log("x: " + lineX + " y: " + lineY );
                 }
             }
         }

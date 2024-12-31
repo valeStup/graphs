@@ -8,8 +8,18 @@
 </head>
 <body>
     <div class="graphSettings">
-        <label>Number of Nodes: </label>
-        <input type="number" class="numInput">
+        <label class="nodeLabel">Number of Nodes: </label>
+        <input type="number" class="numInput"  min="1" max="25"> 
+        <label class="addEdgeLabel">Add an Edge:</label>
+        <div class="addEdgeInputDiv">
+          <label>From: </label>
+          <input class="addEdgeInput" type="text" id="startInput">
+          <label>To: </label>
+          <input class="addEdgeInput" type="text" id="destInput">
+          <label>Weight: </label>
+          <input class="addEdgeInput" type="number" id="weightInput" min="0" max="1000">
+        </div>
+        <button class="addEdgeBtn">Add</button>
     </div>
     <div class="graphDisplay"></div>
   <script type="module" src="./main.js"></script>

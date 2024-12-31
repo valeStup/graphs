@@ -33,9 +33,35 @@
 
 .graphSettings {
     border: 1px solid;
-    width: 10vw ;
+    width: 300px  ;
     margin: 0 ;
     margin-top: 50px ;
     margin-left: 50px ;
     padding: 20px ;
+    height: 100px ;;
+    text-align: left;
+    position: absolute;
+}
+.addEdgeInputDiv {
+    display: flex;
+    position: relative; 
+    top: 25px ;
+}
+.addEdgeInput {
+    width: 40px ;
+    margin: 0 10px ;
+}
+.addEdgeLabel {
+    position: relative; 
+    top: 25px ;
+    font-size: 1.1rem ;
+    right: 195px ;
+}
+.addEdgeBtn {
+    
+    position: relative; 
+    top: 25px ;
+}
+.nodeLabel {
+    font-size: 1.1rem ;
 }
