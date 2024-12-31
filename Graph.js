@@ -77,6 +77,10 @@ export class Graph {
         return this.adjacencyList.get(node) ;
     }
 
+    getLength() {
+        return this.adjacencyList.size ;
+    }
+
     hasEdge(node1, node2) {
         return this.adjacencyList.get(node1).has(node2) ;
     }

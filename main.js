@@ -8,6 +8,11 @@ const y1 = rect.top ;
 const x1 = rect.left ;
 const width = rect.right - rect.left ;
 let selectedNodes = [] ;
+let randomCount = 0 ;
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max) ;
+}
 
 const numInput = document.querySelector('.numInput') ;
 numInput.addEventListener("input", () => {
@@ -38,6 +43,26 @@ document.addEventListener("click", function(e) {
         selectedNodes = [] ;
 
     }
+})
+
+const genRandomBtn = document.querySelector('.genRandomBtn');
+genRandomBtn.addEventListener("click", () => {
+    randomCount++ ;
+    if(randomCount >= 10) return ;
+    let amount = 10 +  getRandomInt(20) ;
+    let lle = graph.getLength() ;
+    for (let i = 0; i < amount; i++) {
+        let cINt = 65 + getRandomInt(lle) ;
+        let char = String.fromCharCode(cINt);
+
+        let cINt2 = 65 + getRandomInt(lle) ;
+        let char2 = String.fromCharCode(cINt2);
+
+        let randW = 1 + getRandomInt(19) ;
+        graph.addEdge(char, char2, randW) ;
+    }
+    container.innerHTML = '' ;
+    graph.displayGraph(container, x1, y1, width);
 })
 
 graph.displayGraph(container, x1, y1, width);
