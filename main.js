@@ -9,6 +9,7 @@ const x1 = rect.left ;
 const width = rect.right - rect.left ;
 let selectedNodes = [] ;
 let randomCount = 0 ;
+let listOfEdges = [] ;  
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max) ;
@@ -19,7 +20,9 @@ numInput.addEventListener("input", () => {
     if (numInput.value > 26) return ; 
     graph.updateSize(numInput.value) ;
     container.innerHTML = '' ;
+    console.log("overwrite");
     graph.displayGraph(container, x1, y1, width);
+    markTheMarked();
 })
 
 const startInput = document.querySelector('#startInput') ;
@@ -28,9 +31,12 @@ const weightInput = document.querySelector('#weightInput') ;
 const addEdgeBtn = document.querySelector('.addEdgeBtn');
 addEdgeBtn.addEventListener("click", () => {
     if (!startInput.value || !endInput.value || !weightInput.value) return ;
-    graph.addEdge(startInput.value, endInput.value, weightInput.value )
+    graph.addEdge(startInput.value, endInput.value, weightInput.value );
+    listOfEdges.push({start: startInput.value, end: endInput.value, marked: false});
     container.innerHTML = '' ;
+    console.log("overwrite");
     graph.displayGraph(container, x1, y1, width);
+    markTheMarked();
 })
 
 document.addEventListener("click", function(e) {
@@ -38,8 +44,11 @@ document.addEventListener("click", function(e) {
     console.log(e.target);
     if (selectedNodes.length === 2) {
         graph.addEdge(selectedNodes[0], selectedNodes[1], weightInput.value) ;
+        listOfEdges.push({start: selectedNodes[0], end: selectedNodes[1], marked: false});
         container.innerHTML = '' ;
+        console.log("overwrite");
         graph.displayGraph(container, x1, y1, width);
+        markTheMarked();
         selectedNodes = [] ;
 
     }
@@ -66,16 +75,60 @@ genRandomBtn.addEventListener("click", () => {
 
         let randW = 1 + getRandomInt(19) ;
         graph.addEdge(char, char2, randW) ;
+        listOfEdges.push({start: char, end: char2, marked: false});
     }
     container.innerHTML = '' ;
+    console.log("overwrite");
     graph.displayGraph(container, x1, y1, width);
+    markTheMarked();
 })
+
+function edgeToList(start, end) {
+    let edgeIX = listOfEdges.findIndex((p) => p.start === start && p.end === end) ;
+    if (edgeIX === -1){
+        edgeIX = listOfEdges.findIndex((p) => p.start === end && p.end === start) ;
+    }
+
+    if (edgeIX === -1 ) {
+        console.log("edgeNotFound");
+        return;
+    }
+    console.log("edgeIX: " + edgeIX + " for: " + start + " and " + end);
+    listOfEdges[edgeIX].marked = true ;
+
+    markTheMarked();
+}
+
+function markTheMarked() {
+    listOfEdges.forEach((edge) => {
+        if (edge.marked == true) {
+            let marko ;
+            if (document.querySelector(`#${edge.start}-${edge.end}`)) {
+                marko = document.querySelector(`#${edge.start}-${edge.end}`) ;
+            } else {
+                marko = document.querySelector(`#${edge.end}-${edge.start}`)
+            }
+            marko.style.backgroundColor = 'red';
+            marko.style.border = '1px solid red' ;
+        }
+    })
+}
+
 const dijkstraStartInput = document.querySelector('#dijkstraStartInput') ;
 const dijkstraDestInput = document.querySelector('#dijkstraDestInput') ;
 const impDijkstraBtn = document.querySelector('.impDijkstraBtn');
 impDijkstraBtn.addEventListener("click", () => {
     if (!dijkstraStartInput.value || !dijkstraDestInput.value) return ;
-    console.log("dijkstra: " + graph.dijkstra(dijkstraStartInput.value, dijkstraDestInput.value)) ;
+    const result = graph.dijkstra(dijkstraStartInput.value, dijkstraDestInput.value) ;
+    const distance = result.pop();
+    const path = Array.from(result[0]) ;
+    const displayText = document.querySelector('.distanceDisplayTxt');
+    displayText.innerText = `${distance}`;
+
+    for (let i = 0; i < path.length ; i++) {
+        console.log("waddup");
+        edgeToList(path[i], path[i+1]) ;
+        
+    }
 });
 
-graph.displayGraph(container, x1, y1, width);

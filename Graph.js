@@ -186,7 +186,6 @@ export class Graph {
                     closestNode = node ;
                 }
             }
-            pathLength += distances[closestNode];
 
             if (distances[closestNode] === Infinity) break ;
             if (closestNode === end) break ;
@@ -201,23 +200,14 @@ export class Graph {
         }
 
         console.log(distances);
-
+        pathLength = distances[end] ;
         let path = [], node = end ;
         while (node) {
             path.push(node) ;
             node = previous[node] ;
         }
         path = path.reverse() ;
-        /*console.log("length: " + pathLength);
-        console.log(path);
-        console.log(path[1]);
-        for (let i = 0; i < path.length; i++) {
-            let thisEdge = document.getElementById(`${path[i]}-${path[i+1]}`); 
-            console.log(`${path[i]}-${path[i+1]}`);
-            thisEdge.style.backgroundColor = 'pink' ;
-            thisEdge.style.border = '10px solid pink' ;
-        }*/
-        return path ;
+        return [path, pathLength] ;
     }
 
     
