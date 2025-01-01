@@ -103,13 +103,20 @@ function markTheMarked() {
     listOfEdges.forEach((edge) => {
         if (edge.marked == true) {
             let marko ;
+            let markoTxt ;
             if (document.querySelector(`#${edge.start}-${edge.end}`)) {
                 marko = document.querySelector(`#${edge.start}-${edge.end}`) ;
+                markoTxt = document.querySelector(`#wTxt-${edge.start}-${edge.end}`)
             } else {
-                marko = document.querySelector(`#${edge.end}-${edge.start}`)
+                marko = document.querySelector(`#${edge.end}-${edge.start}`);
+                markoTxt = document.querySelector(`#wTxt-${edge.end}-${edge.start}`);
             }
             marko.style.backgroundColor = 'red';
             marko.style.border = '1px solid red' ;
+            markoTxt.style.color = 'red' ;
+            markoTxt.style.fontWeight = 'bold' ;
+            markoTxt.style.fontSize = '1.2rem'
+            console.log(markoTxt);
         }
     })
 }
