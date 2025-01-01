@@ -1,6 +1,6 @@
 # graphs
 experimenting with weighted graphs and visualizing them
 
-also imlementing and visualizing dikstras algorithm
+aswell as implementing and visualizing Dijkstra's algorithm
 
 https://valestup.github.io/graphs/
