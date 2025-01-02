@@ -113,6 +113,7 @@ function markTheMarked() {
     })
 }
 
+const displayText = document.querySelector('.distanceDisplayTxt');
 const dijkstraStartInput = document.querySelector('#dijkstraStartInput') ;
 const dijkstraDestInput = document.querySelector('#dijkstraDestInput') ;
 const impDijkstraBtn = document.querySelector('.impDijkstraBtn');
@@ -121,7 +122,6 @@ impDijkstraBtn.addEventListener("click", () => {
     const result = graph.dijkstra(dijkstraStartInput.value, dijkstraDestInput.value) ;
     const distance = result.pop();
     const path = Array.from(result[0]) ;
-    const displayText = document.querySelector('.distanceDisplayTxt');
     displayText.innerText = `${distance}`;
 
     for (let i = 0; i < path.length ; i++) {
@@ -141,6 +141,7 @@ function clearDijkstra() {
         container.innerHTML = '' ;
         graph.displayGraph(container, x1, y1, width);
         markTheMarked();
+        displayText.innerText = "";
     })
 }
 
