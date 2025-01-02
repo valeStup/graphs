@@ -95,3 +95,11 @@
     color: red ;
     font-size: 40px ;
 }
+.dijkstraBtns {
+    display: flex;
+}
+.clearDijkstraBtn {
+    position: relative; 
+    top: 35px ;
+    left: 40px ;
+}

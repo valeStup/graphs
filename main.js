@@ -43,7 +43,7 @@ document.addEventListener("click", function(e) {
     selectedNodes.push(e.target.id);
     console.log(e.target);
     if (selectedNodes.length === 2) {
-        graph.addEdge(selectedNodes[0], selectedNodes[1], weightInput.value) ;
+        graph.addEdge((selectedNodes[0]), selectedNodes[1], Number(weightInput.value)) ;
         listOfEdges.push({start: selectedNodes[0], end: selectedNodes[1], marked: false});
         container.innerHTML = '' ;
         console.log("overwrite");
@@ -120,6 +120,27 @@ function markTheMarked() {
         }
     })
 }
+function unmarkTheUnmarked() {
+    listOfEdges.forEach((edge) => {
+        if (edge.marked == false) {
+            let marko ;
+            let markoTxt ;
+            if (document.querySelector(`#${edge.start}-${edge.end}`)) {
+                marko = document.querySelector(`#${edge.start}-${edge.end}`) ;
+                markoTxt = document.querySelector(`#wTxt-${edge.start}-${edge.end}`)
+            } else {
+                marko = document.querySelector(`#${edge.end}-${edge.start}`);
+                markoTxt = document.querySelector(`#wTxt-${edge.end}-${edge.start}`);
+            }
+            marko.style.backgroundColor = 'black';
+            marko.style.border = '1px solid black' ;
+            markoTxt.style.color = 'black' ;
+            markoTxt.style.fontWeight = 'normal' ;
+            markoTxt.style.fontSize = '1rem'
+            console.log(markoTxt);
+        }
+    })
+}
 
 const dijkstraStartInput = document.querySelector('#dijkstraStartInput') ;
 const dijkstraDestInput = document.querySelector('#dijkstraDestInput') ;
@@ -139,3 +160,17 @@ impDijkstraBtn.addEventListener("click", () => {
     }
 });
 
+const clearDijkstraBtn = document.querySelector('.clearDijkstraBtn') ;
+clearDijkstraBtn.addEventListener("click", () => {
+    clearDijkstra();
+})
+
+function clearDijkstra() {
+    listOfEdges.forEach((edge) => {
+        edge.marked = false ;
+        console.log(listOfEdges);
+        container.innerHTML = '' ;
+        graph.displayGraph(container, x1, y1, width);
+        markTheMarked();
+    })
+}
