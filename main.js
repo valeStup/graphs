@@ -20,7 +20,6 @@ numInput.addEventListener("input", () => {
     if (numInput.value > 26) return ; 
     graph.updateSize(numInput.value) ;
     container.innerHTML = '' ;
-    console.log("overwrite");
     graph.displayGraph(container, x1, y1, width);
     markTheMarked();
 })
@@ -34,19 +33,16 @@ addEdgeBtn.addEventListener("click", () => {
     graph.addEdge(startInput.value, endInput.value, weightInput.value );
     listOfEdges.push({start: startInput.value, end: endInput.value, marked: false});
     container.innerHTML = '' ;
-    console.log("overwrite");
     graph.displayGraph(container, x1, y1, width);
     markTheMarked();
 })
 
 document.addEventListener("click", function(e) {
     selectedNodes.push(e.target.id);
-    console.log(e.target);
     if (selectedNodes.length === 2) {
         graph.addEdge((selectedNodes[0]), selectedNodes[1], Number(weightInput.value)) ;
         listOfEdges.push({start: selectedNodes[0], end: selectedNodes[1], marked: false});
         container.innerHTML = '' ;
-        console.log("overwrite");
         graph.displayGraph(container, x1, y1, width);
         markTheMarked();
         selectedNodes = [] ;
@@ -78,7 +74,6 @@ genRandomBtn.addEventListener("click", () => {
         listOfEdges.push({start: char, end: char2, marked: false});
     }
     container.innerHTML = '' ;
-    console.log("overwrite");
     graph.displayGraph(container, x1, y1, width);
     markTheMarked();
 })
@@ -90,10 +85,8 @@ function edgeToList(start, end) {
     }
 
     if (edgeIX === -1 ) {
-        console.log("edgeNotFound");
         return;
     }
-    console.log("edgeIX: " + edgeIX + " for: " + start + " and " + end);
     listOfEdges[edgeIX].marked = true ;
 
     markTheMarked();
@@ -115,29 +108,7 @@ function markTheMarked() {
             marko.style.border = '1px solid red' ;
             markoTxt.style.color = 'red' ;
             markoTxt.style.fontWeight = 'bold' ;
-            markoTxt.style.fontSize = '1.2rem'
-            console.log(markoTxt);
-        }
-    })
-}
-function unmarkTheUnmarked() {
-    listOfEdges.forEach((edge) => {
-        if (edge.marked == false) {
-            let marko ;
-            let markoTxt ;
-            if (document.querySelector(`#${edge.start}-${edge.end}`)) {
-                marko = document.querySelector(`#${edge.start}-${edge.end}`) ;
-                markoTxt = document.querySelector(`#wTxt-${edge.start}-${edge.end}`)
-            } else {
-                marko = document.querySelector(`#${edge.end}-${edge.start}`);
-                markoTxt = document.querySelector(`#wTxt-${edge.end}-${edge.start}`);
-            }
-            marko.style.backgroundColor = 'black';
-            marko.style.border = '1px solid black' ;
-            markoTxt.style.color = 'black' ;
-            markoTxt.style.fontWeight = 'normal' ;
-            markoTxt.style.fontSize = '1rem'
-            console.log(markoTxt);
+            markoTxt.style.fontSize = '1.2rem' ;
         }
     })
 }
@@ -154,7 +125,6 @@ impDijkstraBtn.addEventListener("click", () => {
     displayText.innerText = `${distance}`;
 
     for (let i = 0; i < path.length ; i++) {
-        console.log("waddup");
         edgeToList(path[i], path[i+1]) ;
         
     }
@@ -168,9 +138,22 @@ clearDijkstraBtn.addEventListener("click", () => {
 function clearDijkstra() {
     listOfEdges.forEach((edge) => {
         edge.marked = false ;
-        console.log(listOfEdges);
         container.innerHTML = '' ;
         graph.displayGraph(container, x1, y1, width);
         markTheMarked();
     })
+}
+
+const clearEdgeBtn = document.querySelector('.clearEdgeBtn') ;
+clearEdgeBtn.addEventListener("click", () => {
+    clearEdge();
+})
+
+function clearEdge() {
+    listOfEdges = [] ;
+    graph.clearEdges() ;
+    randomCount = 0 ;
+    container.innerHTML = '' ;
+    graph.displayGraph(container, x1, y1, width);
+    markTheMarked();
 }

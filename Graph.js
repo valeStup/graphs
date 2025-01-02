@@ -29,9 +29,18 @@ export class Graph {
         })
     }
 
+    clearEdges() {
+        for (let node of this.adjacencyList.keys()) {
+            for (let edge of this.adjacencyList.get(node).entries()) {
+                this.adjacencyList.get(node).delete(edge[0]) ;
+            }
+            let ind = this.adjaObjList.findIndex((p) => p.name === node) ;
+            this.adjaObjList[ind].neighbours = '' ;
+        }
+    }
+
     updateSize(newSize) {
         const l = this.adjacencyList.size ;
-        console.log("l = " + l);
         let lastC = 'A' ;
         let asc = 64 ;
         if(l > 0) {
@@ -199,7 +208,6 @@ export class Graph {
             unvisited.delete(closestNode);
         }
 
-        console.log(distances);
         pathLength = distances[end] ;
         let path = [], node = end ;
         while (node) {
