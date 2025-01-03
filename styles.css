@@ -81,6 +81,17 @@
     text-align: left;
     position: absolute;
 }
+.primsAlgorithm {
+    border: 1px solid;
+    width: 300px  ;
+    margin: 0 ;
+    margin-top: 600px ;
+    margin-left: 50px ;
+    padding: 20px ;
+    height: 100px ;;
+    text-align: left;
+    position: absolute;
+}
 .impDijkstraBtn {
     position: relative; 
     top: 35px ; 
@@ -105,4 +116,14 @@
 }
 .clearEdgeBtn {
     left: 40px ;
+}
+.primBtns {
+    display: flex;
+}
+.impPrimBtn {
+    position: relative;
+    top: 35px ;
+}
+.clearPrimBtn {
+    position: relative;
 }

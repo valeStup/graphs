@@ -218,5 +218,44 @@ export class Graph {
         return [path, pathLength] ;
     }
 
+    prim() {
+        let start = "A", cheapest = new Map(), connection = new Map(), unvisited = new Set();
+        for (let key of this.adjacencyList.keys()) {
+            let c = key === start ? 0 : Infinity ;
+            cheapest.set(key, c);
+            connection.set(key, null) ;
+            unvisited.add(key) ;
+        }
+        let visited = new Set()
+
+        while (unvisited.size) {
+            let closestNode = null ;
+            for (let node of unvisited) {
+                if (!closestNode || cheapest.get(node) < cheapest.get(closestNode)) {
+                    closestNode = node ;
+                }
+            }
+            let newDistance = Infinity, connect = null ;
+            for (let neighbour of this.adjacencyList.get(closestNode)) {
+                if (neighbour[1] < newDistance) {
+                    newDistance = neighbour[1];
+                    connect = neighbour[0];
+                }
+            }
+            cheapest.set(connect, newDistance) ;
+            connect.set(closestNode, connect) ;
+            visited.add(closestNode);
+            unvisited.delete(closestNode);
+            console.log(closestNode);
+            break;
+        }
+
+
+
+
+        console.log(connection);
+        console.log(unvisited);
+    }
+
     
 }

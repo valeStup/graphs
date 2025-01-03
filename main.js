@@ -158,3 +158,8 @@ function clearEdge() {
     graph.displayGraph(container, x1, y1, width);
     markTheMarked();
 }
+
+const impPrimBtn = document.querySelector('.impPrimBtn');
+impPrimBtn.addEventListener("click", () => {
+    graph.prim();
+})
