@@ -126,4 +126,6 @@
 }
 .clearPrimBtn {
     position: relative;
+    top: 35px ;
+    left: 40px ;
 }

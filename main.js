@@ -170,3 +170,15 @@ impPrimBtn.addEventListener("click", () => {
     displayText.innerText = `${primWeight}`;
     console.log(listOfEdges);
 })
+
+const clearPrimBtn = document.querySelector('.clearPrimBtn');
+clearPrimBtn.addEventListener("click", () => {
+    listOfEdges.forEach((edge) => {
+        edge.marked = false ;
+        container.innerHTML = '' ;
+        graph.displayGraph(container, x1, y1, width);
+        markTheMarked();
+        displayText.innerText = "";
+    })
+    console.log(listOfEdges);
+})
