@@ -250,10 +250,11 @@ export class Graph {
                     }
                 }
             }
-            edges.add([connector, connect, newDistance]);
+            if (!(connector === null || connect === null || newDistance === Infinity)) {
+                edges.add([connector, connect, newDistance]);
+            }
             cheapest.set(connect, newDistance) ;
         }
-
 
         console.log(edges);
         return edges ;

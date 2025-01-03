@@ -162,8 +162,11 @@ function clearEdge() {
 const impPrimBtn = document.querySelector('.impPrimBtn');
 impPrimBtn.addEventListener("click", () => {
     const edges = graph.prim();
+    let primWeight = 0 ;
     for (let primEdge of edges) {
         edgeToList(primEdge[0], primEdge[1]);
+        primWeight += primEdge[2] ;
     }
+    displayText.innerText = `${primWeight}`;
     console.log(listOfEdges);
 })
