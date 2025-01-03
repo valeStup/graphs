@@ -67,6 +67,7 @@ export class Graph {
     }
 
     addEdge(node1, node2, weight) { 
+        if (node1 === node2) return ;
         if (this.adjacencyList.has(node1) && this.adjacencyList.has(node2)) {
             this.adjacencyList.get(node1).set(node2, weight) ; 
             this.adjacencyList.get(node2).set(node1, weight) ;
@@ -219,42 +220,43 @@ export class Graph {
     }
 
     prim() {
-        let start = "A", cheapest = new Map(), connection = new Map(), unvisited = new Set();
+        let cheapest = new Map(), edges = new Set(),  unvisited = new Set();
         for (let key of this.adjacencyList.keys()) {
-            let c = key === start ? 0 : Infinity ;
+            let c = key === "A" ? 0 : Infinity ;
             cheapest.set(key, c);
-            connection.set(key, null) ;
             unvisited.add(key) ;
         }
         let visited = new Set()
 
-        while (unvisited.size) {
+       
+        for (let i = 0; i < this.adjacencyList.size; i++) {
             let closestNode = null ;
             for (let node of unvisited) {
                 if (!closestNode || cheapest.get(node) < cheapest.get(closestNode)) {
                     closestNode = node ;
                 }
             }
-            let newDistance = Infinity, connect = null ;
-            for (let neighbour of this.adjacencyList.get(closestNode)) {
-                if (neighbour[1] < newDistance) {
-                    newDistance = neighbour[1];
-                    connect = neighbour[0];
-                }
-            }
-            cheapest.set(connect, newDistance) ;
-            connect.set(closestNode, connect) ;
+
             visited.add(closestNode);
             unvisited.delete(closestNode);
-            console.log(closestNode);
-            break;
+            let newDistance = Infinity, connect = null, connector = null ;
+
+            for (let vertex of visited){
+                for (let neighbour of this.adjacencyList.get(vertex)) {
+                    if (neighbour[1] < newDistance && !visited.has(neighbour[0])) {
+                        newDistance = neighbour[1];
+                        connect = neighbour[0];
+                        connector = vertex ;
+                    }
+                }
+            }
+            edges.add([connector, connect, newDistance]);
+            cheapest.set(connect, newDistance) ;
         }
 
 
-
-
-        console.log(connection);
-        console.log(unvisited);
+        console.log(edges);
+        return edges ;
     }
 
     
