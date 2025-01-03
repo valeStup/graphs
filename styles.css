@@ -129,3 +129,6 @@
     top: 35px ;
     left: 40px ;
 }
+div {
+    border-radius: 10px;
+}
